@@ -1,0 +1,19 @@
+[Unit]
+Description=KimyoSertifikatBotService
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=root
+WorkingDirectory=/root/kimyosertifikatbot
+ExecStart=/root/muqriyvenv/bin/python app.py
+MemoryMax=300M
+CPUQuota=30%
+StandardOutput=file:/var/log/kimyosertlog.log
+StandardError=file:/var/log/kimyoserterror.log
+
+[Install]
+WantedBy=multi-user.target
