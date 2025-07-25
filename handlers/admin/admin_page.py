@@ -13,7 +13,7 @@ from states.admin import AdminStates
 from utils.db_functions import send_media_group_to_users, send_message_to_users
 
 WARNING_TEXT = (
-    "Habar yuborishdan oldin postingizni yaxshilab tekshirib oling!\n\n"
+    "Xabar yuborishdan oldin postingizni yaxshilab tekshirib oling!\n\n"
     "Imkoni bo'lsa postingizni oldin tayyorlab olib keyin yuboring.\n\n"
     "Habaringizni kiriting:"
 )
@@ -68,7 +68,7 @@ async def send_media_to_bot(message: types.Message):
 @dp.message_handler(state=AdminStates.SEND_MEDIA_TO_USERS, content_types=types.ContentTypes.ANY, is_media_group=True)
 async def send_media_to_bot_second(message: types.Message, album: List[types.Message], state: FSMContext):
     await state.finish()
-    await message.answer(text="Habar yuborish boshlandi...", reply_markup=types.ReplyKeyboardRemove())
+    await message.answer(text="Xabar yuborish boshlandi...", reply_markup=types.ReplyKeyboardRemove())
     try:
         media_group = types.MediaGroup()
 
