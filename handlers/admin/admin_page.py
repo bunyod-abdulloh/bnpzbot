@@ -8,14 +8,14 @@ from magic_filter import F
 from filters.admins import IsBotAdminFilter
 from handlers.private.start import bot_start
 from keyboards.default.admin_buttons import admin_main_buttons
-from loader import dp, db
+from loader import dp, udb, admdb
 from states.admin import AdminStates
 from utils.db_functions import send_media_group_to_users, send_message_to_users
 
 WARNING_TEXT = (
     "Xabar yuborishdan oldin postingizni yaxshilab tekshirib oling!\n\n"
     "Imkoni bo'lsa postingizni oldin tayyorlab olib keyin yuboring.\n\n"
-    "Habaringizni kiriting:"
+    "Xabaringizni kiriting:"
 )
 
 ALERT_TEXT = "Xabar yuborish jarayoni yoqilgan! Hisobot kelganidan so'ng xabar yuborishingiz mumkin!"
@@ -33,13 +33,13 @@ async def back_to_main_page(message: types.Message, state: FSMContext):
 
 @dp.message_handler(IsBotAdminFilter(), F.text == "😎 Foydalanuvchilar soni")
 async def user_count(message: types.Message):
-    count = await db.count_users()
+    count = await udb.count_users()
     await message.answer(f"Foydalanuvchilar soni: {count}")
 
 
 @dp.message_handler(IsBotAdminFilter(), F.text == "✅ Oddiy post yuborish")
 async def send_to_bot_users(message: types.Message):
-    send_status = await db.get_send_status()
+    send_status = await admdb.get_send_status()
     if send_status is True:
         await message.answer(ALERT_TEXT)
     else:
@@ -57,7 +57,7 @@ async def send_to_bot_users_two(message: types.Message, state: FSMContext):
 
 @dp.message_handler(IsBotAdminFilter(), F.text == "🎞 Mediagroup post yuborish")
 async def send_media_to_bot(message: types.Message):
-    send_status = await db.get_send_status()
+    send_status = await admdb.get_send_status()
     if send_status is True:
         await message.answer(ALERT_TEXT)
     else:
