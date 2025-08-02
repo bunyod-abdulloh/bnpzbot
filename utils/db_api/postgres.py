@@ -44,6 +44,19 @@ class Database:
                     id SERIAL PRIMARY KEY,
                     status BOOLEAN DEFAULT FALSE                                
                 );
+            """,
+            """
+                CREATE TABLE IF NOT EXISTS user_datas (
+                    id SERIAL PRIMARY KEY,
+                    full_name VARCHAR(255) NULL,
+                    position VARCHAR(255) NULL,
+                    address VARCHAR(255) NULL,
+                    invertor_image VARCHAR(255) NULL,
+                    panel_model_image VARCHAR(255) NULL,
+                    photo_one VARCHAR(255) NULL,
+                    photo_two VARCHAR(255) NULL,
+                    photo_three VARCHAR(255) NULL                        
+                );
             """
         ]
         for query in queries:
